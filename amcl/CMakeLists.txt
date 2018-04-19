@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(amcl)
 
+set (CMAKE_CXX_STANDARD 11)
+add_definitions(-std=c++11)
+
 find_package(catkin REQUIRED
         COMPONENTS
             message_filters
@@ -11,6 +14,9 @@ find_package(catkin REQUIRED
             dynamic_reconfigure
             nav_msgs
             std_srvs
+            std_msgs
+            message_generation 
+            scn_library
         )
 
 find_package(Boost REQUIRED)
@@ -58,7 +64,8 @@ target_link_libraries(amcl_sensors amcl_map amcl_pf)
 
 add_executable(amcl
                        src/amcl_node.cpp)
-add_dependencies(amcl ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+ 
+add_dependencies(amcl reconfigure_generate_messages_cpp scn_library ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(amcl
     amcl_sensors amcl_map amcl_pf
