@@ -368,8 +368,6 @@ void loadStateCb() {
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "amcl");
-
   //ros::init(argc, argv, "amcl");
   ros::scnInit(argc, argv, "amcl", ros::init_options::NoSigintHandler, saveStateCb, reconModeCb, loadStateCb);
 
